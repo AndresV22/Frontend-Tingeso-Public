@@ -1,48 +1,58 @@
 <template>
-  <v-container fill-height fluid grid-list-xl>
+  <v-container>
     <v-layout wrap>
-      <v-flex xs12 md8 lg8>
-        <v-card>
-          <v-card-title primary-title>
-            <div>
-              <div class="headline font-weight-black text-uppercase">{{ student.name }}</div>
-              <br>
-              <v-flex xs6>
-                <v-textarea
-                  name="nombre"
-                  label="Nombre"
-                  v-model=student.name
-                ></v-textarea>
-              </v-flex>
-              <v-flex xs6>
-                <v-textarea
-                  name="descripción"
-                  label="Descripción"
-                  v-model=student.rut
-                ></v-textarea>
-              </v-flex>
-              <v-flex xs6>
-                <v-textarea
-                  name="descripción"
-                  label="Descripción"
-                  v-model=student.birthday
-                ></v-textarea>
-              </v-flex>
-              <v-flex xs6>
-                <v-textarea
-                  name="descripción"
-                  label="Descripción"
-                  v-model=student.career
-                ></v-textarea>
-              </v-flex>
-              <v-btn color="success" @click="createProposal()">Actualizar</v-btn>
-              <v-btn color="error" @click="eliminarPropuesta()">Eliminar</v-btn>
-            </div>
-            </v-card-title>
-            <v-card-actions>
-            <v-spacer></v-spacer>
-            </v-card-actions>
-        </v-card>
+      <v-flex xs4 md4 lg4>
+        <v-row xs6 md6 lg6>
+            <v-text-field
+              name="name"
+              label="Nombre"
+              v-model=student.name
+            ></v-text-field>
+        </v-row>
+        <v-row xs6 md6 lg6>
+            <v-text-field
+              name="rut"
+              label="Rut"
+              v-model=student.rut
+            ></v-text-field>
+        </v-row>
+        <v-row xs6 md6 lg6>
+            <v-text-field
+              name="birthday"
+              label="Fecha de nacimiento"
+              v-model=student.birthday
+            ></v-text-field>
+        </v-row>
+        <v-row xs6 md6 lg6>
+            <v-text-field
+              name="career"
+              label="Carrera"
+              v-model=student.career
+            ></v-text-field>
+        </v-row>
+        <v-btn color="success" @click="createStudent()">Inscribir</v-btn>
+      </v-flex>
+      <v-flex xs2 md2 lg2></v-flex>
+
+      <v-flex xs6 md6 lg6>
+        <v-simple-table>
+          <thead>
+            <tr>
+              <th class="text-left">Nombre</th>
+              <th class="text-left">Rut</th>
+              <th class="text-left">Nacimiento</th>
+              <th class="text-left">Carrera</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in students" :key="item.name">
+              <td>{{ item.name }}</td>
+              <td>{{ item.rut }}</td>
+              <td>{{ item.birthday }}</td>
+              <td>{{ item.career }}</td>
+            </tr>
+          </tbody>
+        </v-simple-table>
       </v-flex>
     </v-layout>
   </v-container>
@@ -56,26 +66,31 @@ export default {
   name: 'student-create',
   data () {
     return {
-      student : {}
+      student : {},
+      students: []
     }
   },
   created() {
-    this.createStudent();
+    this.getAllStudents()
   },
   methods: {
+    getAllStudents(){
+      axios
+      .get(this.serverURL + '/students/')
+      .then(response => {
+        this.students = response.data
+      })
+    },
     createStudent(){
       this.student.name
       this.student.rut
       this.student.birthday
       this.student.career
       axios
-      .put(this.serverURL + '/students/', this.student)
+      .post(this.serverURL + '/students/create', this.student)
       .then(response => {
-        this.student = response
+        this.getAllStudents()
       })
-      // .catch(e => {
-      //   console.log(e)
-      // })
     }
   },
   computed: {
