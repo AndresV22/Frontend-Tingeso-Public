@@ -28,6 +28,7 @@
               name="career"
               label="Carrera"
               v-model=student.career
+              @keypress.enter="createStudent()"
             ></v-text-field>
         </v-row>
         <v-btn color="success" @click="createStudent()">Inscribir</v-btn>
@@ -90,6 +91,10 @@ export default {
       .post(this.serverURL + '/students/create', this.student)
       .then(response => {
         this.getAllStudents()
+        this.student.name=null
+        this.student.rut=null
+        this.student.birthday=null
+        this.student.career=null
       })
     }
   },
