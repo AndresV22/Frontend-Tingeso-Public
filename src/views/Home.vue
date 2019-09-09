@@ -1,19 +1,13 @@
 <template>
-    <div>
-        <Create/>
-    </div>
+  <HelloWorld />
 </template>
 
 <script>
-import Create from '@/components/Create';
+import HelloWorld from '../components/HelloWorld';
 
 export default {
-  name: 'App',
   components: {
-    Create,
+    HelloWorld,
   },
-  data: () => ({
-    //
-  }),
 };
 </script>

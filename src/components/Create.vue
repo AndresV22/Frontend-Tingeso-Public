@@ -1,23 +1,13 @@
 <template>
-  <v-container
-    fill-height
-    fluid
-    grid-list-xl>
-    <v-layout
-      wrap
-    >
-      <v-flex 
-      xs12 
-      md8 
-      lg8
-      >
+  <v-container fill-height fluid grid-list-xl>
+    <v-layout wrap>
+      <v-flex xs12 md8 lg8>
         <v-card>
-
-            <v-card-title primary-title>
+          <v-card-title primary-title>
             <div>
-                <div class="headline font-weight-black text-uppercase">{{ student.name }}</div>
-                <br>
-                <v-flex xs6>
+              <div class="headline font-weight-black text-uppercase">{{ student.name }}</div>
+              <br>
+              <v-flex xs6>
                 <v-textarea
                   name="nombre"
                   label="Nombre"
@@ -59,12 +49,8 @@
 </template>
 
 <script>
-
-/* eslint-disable */
-
 import axios from 'axios';
-import router from '@/router';
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'student-create',
@@ -85,12 +71,11 @@ export default {
       axios
       .put(this.serverURL + '/students/', this.student)
       .then(response => {
-        console.log(response)
-        //router.push({ name: 'home' })
+        this.student = response
       })
-      .catch(e => {
-        console.log(e)
-      })
+      // .catch(e => {
+      //   console.log(e)
+      // })
     }
   },
   computed: {
