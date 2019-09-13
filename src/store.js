@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        serverURL: 'http://localhost:8080',
-        //serverURL: 'http://projecthunter.tk:8080/symbiose',
+        //serverURL: 'http://localhost:8080',
+        serverURL: 'http://tingeso.tk:8080/tingeso',
     }
 })
