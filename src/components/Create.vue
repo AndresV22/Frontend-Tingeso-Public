@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-layout wrap>
-      <v-flex xs4 md4 lg4>
-        <v-row xs6 md6 lg6>
+    <v-layout justify-center>
+      <v-flex xs10 md8 lg8>
+        <v-row justify="center" xs6 md6 lg6>
             <v-text-field
               name="name"
               label="Nombre"
@@ -33,9 +33,12 @@
         </v-row>
         <v-btn color="success" @click="createStudent()">Inscribir</v-btn>
       </v-flex>
-      <v-flex xs2 md2 lg2></v-flex>
+      </v-layout>
 
-      <v-flex xs6 md6 lg6>
+      <br>
+
+      <v-layout justify-center>
+      <v-flex xs12 md12 lg12>
         <v-simple-table>
           <thead>
             <tr>
