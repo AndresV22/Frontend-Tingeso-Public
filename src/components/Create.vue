@@ -2,6 +2,7 @@
   <v-container>
     <v-layout justify-center>
       <v-flex xs10 md8 lg8>
+
         <v-row justify="center" xs6 md6 lg6>
             <v-text-field
               name="name"
@@ -9,6 +10,7 @@
               v-model=student.name
             ></v-text-field>
         </v-row>
+
         <v-row xs6 md6 lg6>
             <v-text-field
               name="rut"
@@ -16,21 +18,40 @@
               v-model=student.rut
             ></v-text-field>
         </v-row>
-        <v-row xs6 md6 lg6>
-            <v-text-field
-              name="birthday"
-              label="Fecha de nacimiento"
-              v-model=student.birthday
-            ></v-text-field>
+
+        <v-row justify="center" xs6 md6 lg6>
+          <v-menu
+            ref="menu"
+            v-model="menu"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model=student.birthday
+                label="Fecha de Nacimiento"
+                readonly
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model=student.birthday no-title scrollable>
+              <div class="flex-grow-1"></div>
+              <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+              <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+            </v-date-picker>
+          </v-menu>
         </v-row>
+
         <v-row xs6 md6 lg6>
-            <v-text-field
-              name="career"
-              label="Carrera"
-              v-model=student.career
-              @keypress.enter="createStudent()"
-            ></v-text-field>
+          <v-select
+          :items="careers"
+          label="Carrera"
+          v-model=student.career
+        ></v-select>
         </v-row>
+        
         <v-btn color="success" @click="createStudent()">Inscribir</v-btn>
       </v-flex>
       </v-layout>
@@ -70,8 +91,15 @@ export default {
   name: 'student-create',
   data () {
     return {
-      student : {},
-      students: []
+      student : 
+      {
+        birthday: new Date().toISOString().substr(0, 10)
+      },
+      students: [],
+      menu: false,
+      modal: false,
+      menu2: false,
+      careers: ['Ingeniería Civil Informática', 'Ingeniería de Ejecución en Computación e Infomática', 'Medicina', 'Derecho'],
     }
   },
   created() {
