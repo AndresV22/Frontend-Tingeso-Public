@@ -2,8 +2,8 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Mingeso</span>
-        <span class="font-weight-light"> Project</span>
+        <span>Tingeso</span>
+        <span class="font-weight-light"> Project 2019</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
